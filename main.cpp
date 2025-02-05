@@ -3,35 +3,37 @@
 #include <string>
 #include <cstdlib>
 
+using namespace std;
 
-std::string readFile(const std::string& filename) {
-    std::ifstream file(filename);
+
+string readFile(const string& filename) {
+    ifstream file(filename);
     if (!file.is_open()) {
-        throw std::runtime_error("Could not open file: " + filename);
+        throw runtime_error("Could not open file: " + filename);
     }
 
-    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+    string content((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
     file.close();
     return content;
 }
 
-void writeFile(const std::string& filename, const std::string& content) {
-    std::ofstream file(filename);
+void writeFile(const string& filename, const string& content) {
+    ofstream file(filename);
     if (!file.is_open()) {
-        throw std::runtime_error("Could not write to file: " + filename);
+        throw runtime_error("Could not write to file: " + filename);
     }
 
     file << content;
     file.close();
 }
 
-void convertMarkdownToPdf(const std::string& mdFile, const std::string& pdfFile) {
+void convertMarkdownToPdf(const string& mdFile, const string& pdfFile) {
    
-    std::string mdContent = readFile(mdFile);
+    string mdContent = readFile(mdFile);
 
    
-    std::string htmlFile = "temp.html";
-    std::string command = "md4c --html " + mdFile + " > " + htmlFile;
+    string htmlFile = "temp.html";
+    string command = "md4c --html " + mdFile + " > " + htmlFile;
     system(command.c_str());
 
    
@@ -39,16 +41,16 @@ void convertMarkdownToPdf(const std::string& mdFile, const std::string& pdfFile)
     system(command.c_str());
 
 
-    std::remove(htmlFile.c_str());
+    remove(htmlFile.c_str());
 
-    std::cout << "Converted " << mdFile << " to " << pdfFile << " successfully.\n";
+    cout << "Converted " << mdFile << " to " << pdfFile << " successfully.\n";
 }
 
 int main() {
     try {
         convertMarkdownToPdf("sample.md", "output.pdf");
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << '\n';
+    } catch (const exception& e) {
+        cerr << "Error: " << e.what() << '\n';
     }
     return 0;
 }
