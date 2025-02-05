@@ -14,5 +14,4 @@ def markdown_to_pdf(md_file, pdf_file):
 
     print(f"Converted '{md_file}' to '{pdf_file}' successfully.")
 
-# Example usage
 markdown_to_pdf("sample.md", "output.pdf")
