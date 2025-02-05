@@ -26,19 +26,19 @@ void writeFile(const std::string& filename, const std::string& content) {
 }
 
 void convertMarkdownToPdf(const std::string& mdFile, const std::string& pdfFile) {
-    // Read the Markdown file
+   
     std::string mdContent = readFile(mdFile);
 
-    // Convert Markdown to HTML using md4c (assuming system command is available)
+   
     std::string htmlFile = "temp.html";
     std::string command = "md4c --html " + mdFile + " > " + htmlFile;
     system(command.c_str());
 
-    // Convert HTML to PDF using wkhtmltopdf
+   
     command = "wkhtmltopdf " + htmlFile + " " + pdfFile;
     system(command.c_str());
 
-    // Cleanup temp files
+
     std::remove(htmlFile.c_str());
 
     std::cout << "Converted " << mdFile << " to " << pdfFile << " successfully.\n";
